@@ -1,11 +1,11 @@
 name: feature-branch-destroy
-
 on:
   pull_request:
-    types:
-      - closed
-    branches:
-      - feature/**
+    types: [opened, synchronize]
+    branches: [feature/**]
+  pull_request_review:
+    types: [submitted]
+
 
 
 permissions:
@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   common:
+    if: github.event.review.state == 'approved'
     # Reuse the compile workflow (can even point to another repo, see the docs)
     uses: ./.github/workflows/common.yaml
   destroy:

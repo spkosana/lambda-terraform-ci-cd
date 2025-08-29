@@ -1,0 +1,40 @@
+name: pytest
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - feature/**
+
+jobs:
+  test:
+    name: pytest-check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11"]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./src
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -vvv -s
+      - name: Run tests with coverage and fail if below 100%
+        run: |
+          pytest --cov=. --cov-fail-under=100 

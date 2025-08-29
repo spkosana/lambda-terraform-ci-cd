@@ -7,19 +7,19 @@ def test_get_cleaned_data():
     assert number == len(data)
 
 # # Commenting for testing failure case of coverage
-# def test_lambda_function_data(create_bucket1):
-#     """_summary_
+def test_lambda_function_data(create_bucket1):
+    """_summary_
 
-#     Args:
-#         create_bucket1 (_type_): _description_
-#     """
+    Args:
+        create_bucket1 (_type_): _description_
+    """
     
-#     bucket_name = "sample-test"
-#     number = 10
-#     event = dict(bucket_name=bucket_name,number=number)
-#     context = {}
-#     response = lambda_handler(event, context)
-#     users_count = response.get("users_count")
+    bucket_name = "sample-test"
+    number = 10
+    event = dict(bucket_name=bucket_name,number=number)
+    context = {}
+    response = lambda_handler(event, context)
+    users_count = response.get("users_count")
     
-#     assert number == users_count
+    assert number == users_count
 

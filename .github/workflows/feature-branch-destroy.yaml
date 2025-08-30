@@ -12,10 +12,21 @@ permissions:
   actions: read
 
 jobs:
-  common:
-    name: common-destory-check
-    if: startsWith(github.event.pull_request.head.ref, 'feature/')
-    # Reuse the compile workflow (can even point to another repo, see the docs)
-    uses: ./.github/workflows/destroy.yaml
-    with:
-      destroy: 'true'
+  check_condition_and_call:
+    runs-on: ubuntu-latest
+    outputs:
+      destroy: ${{ steps.set_output.outputs.destroy }}
+
+    steps:
+      - name: Perform a check
+        id: set_output
+        run: |
+          DESTROY=true
+          echo "destroy=$DESTROY" >> $GITHUB_OUTPUT
+      - name: Call the reusable workflow
+        # The 'if' condition is crucial for controlling the next workflow run
+        if: ${{ fromJSON(steps.set_output.outputs.destroy) == true }}
+        uses: ./.github/workflows/destroy.yml # Path to your reusable workflow
+        with:
+          # Pass the boolean output from the previous step
+          destroy: ${{ steps.set_output.outputs.destroy }}

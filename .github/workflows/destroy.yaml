@@ -6,8 +6,8 @@ on:
       destroy:
         description: 'Destroy the environment'
         required: true
-        type: string
-        default: 'false'
+        type: boolean
+        default: false
 
 
 permissions:
@@ -56,7 +56,7 @@ jobs:
         run: |
           echo "Destroy input: ${{ github.event.inputs.destroy }}"
       - name: Terraform Destroy
-        if: ${{ github.event.inputs.destroy == 'true' }}
+        if: ${{ github.event.inputs.destroy }}
         working-directory: terraform
         run: |
           terraform workspace select ${{ needs.common.outputs.tf_workspace }}

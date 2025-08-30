@@ -18,4 +18,4 @@ jobs:
     # Reuse the compile workflow (can even point to another repo, see the docs)
     uses: ./.github/workflows/destroy.yaml
     with:
-      destroy: true
+      destroy: 'true'

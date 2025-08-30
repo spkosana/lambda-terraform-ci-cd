@@ -1,7 +1,7 @@
 name: feature-branch-destroy
 on:
   pull_request:
-    types: [opened, synchronize, closed]
+    types: [closed]
     branches: [develop]
 
 
@@ -14,7 +14,7 @@ permissions:
 jobs:
   common:
     name: common-destory-check
-    if: ${{ github.event.pull_request.merged =='true' }}
+    if: ${{ github.event.pull_request.merged == 'true' }}
     # Reuse the compile workflow (can even point to another repo, see the docs)
     uses: ./.github/workflows/destroy.yaml
     with:

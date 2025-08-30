@@ -17,6 +17,6 @@ jobs:
   common:
     name: common-destory-check
     # Reuse the compile workflow (can even point to another repo, see the docs)
-    uses: ./.github/workflows/common.yaml
+    uses: ./.github/workflows/destroy.yaml
     with:
       destroy: "true"

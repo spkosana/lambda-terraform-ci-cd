@@ -25,6 +25,9 @@ jobs:
         run: |
           DESTROY=true
           echo "destroy=$DESTROY" >> $GITHUB_OUTPUT
+      - name: Logging files
+        run: |
+          echo $(ls -al)
       - name: Call the reusable workflow
         # The 'if' condition is crucial for controlling the next workflow run
         if: ${{ fromJSON(steps.set_output.outputs.destroy) == true }}

@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   common:
+    name: common-destory-check
     if: ${{ github.event.pull_request.merged =='true' }}
     # Reuse the compile workflow (can even point to another repo, see the docs)
     uses: ./.github/workflows/common.yaml

@@ -1,6 +1,12 @@
 from handler.handler import lambda_handler,get_cleaned_data
 
 def test_get_cleaned_data():
+    """
+    Tests the get_cleaned_data function
+    
+    Verifies that the length of the list returned by get_cleaned_data is
+    equal to the number argument passed to the function.
+    """
     number = 1
     data = get_cleaned_data(number)
     

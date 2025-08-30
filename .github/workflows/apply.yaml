@@ -1,7 +1,15 @@
 name: apply
 
 on:
+  workflow_call:
   workflow_dispatch:
+    inputs:
+      destory:
+        description: 'Destroy resources'
+        required: true
+        type: boolean
+        default: false
+
 # OIDC permissions for keyless authentication
 permissions:
   id-token: write
@@ -56,5 +64,6 @@ jobs:
         run: |
           terraform workspace select ${{ needs.common.outputs.tf_workspace }}
       - name: Terraform Apply
+        if: ${{ github.event.inputs.destory == 'true' }}
         working-directory: terraform
         run: terraform apply --auto-approve

@@ -16,11 +16,12 @@ permissions:
 jobs:
   common:
     name: common-destory-check
-    if: ${{ github.event.pull_request.merged =='true' }}
+    
     # Reuse the compile workflow (can even point to another repo, see the docs)
     uses: ./.github/workflows/common.yaml
   destroy:
     name: feature-branch-destroy-check
+    if: ${{ github.event.pull_request.merged =='true' }}
     needs: common
     runs-on: ubuntu-24.04-arm
     environment: ${{ needs.common.outputs.environment }}
